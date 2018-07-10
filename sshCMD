@@ -1,0 +1,37 @@
+###########################################################
+#              .__    _________     _____  ________       #
+#  ______ _____|  |__ \_   ___ \   /     \ \______ \      #
+# /  ___//  ___/  |  \/    \  \/  /  \ /  \ |    |  \     #
+# \___ \ \___ \|   Y  \     \____/    Y    \|    `   \    #
+#/____  >____  >___|  /\______  /\____|__  /_______  /    #
+#     \/     \/     \/        \/         \/        \/     #
+#                                                         #
+###########################################################
+
+
+
+# Requires paramiko: http://www.paramiko.org/
+	# pip install paramiko
+
+import threading
+import paramiko
+import subprocess
+
+def ssh_command(ip, user, passwd, command):
+	client = paramiko.SSHClient()
+	#client.load_host_keys('/home/justin/.ssh/known_hosts')
+	client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+	client.connect(ip, username=user, password=passwd)
+	ssh_session = client.get_transport().open_session()
+
+	if ssh_session.active:
+		ssh_session.exec_command(command)
+		print ssh_session.recv(1024)
+	return
+
+	ssh_command('<DestIPAddress>', '<username>', '<password>','<command>')
+
+# sample execution 
+# Windows system to Linux system w/ execution of 'id' cmd
+# C:\tmp> python sshcmd.py
+# Uid=1000(UserID) gid=1001(Groupid) groups=1001(otherGroups)
