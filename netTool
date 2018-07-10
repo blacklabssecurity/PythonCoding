@@ -7,6 +7,8 @@
 #                                     #
 #######################################
 
+# source from the Black Hat Python text...
+
 # import some required functions into memory
 import sys
 import socket
