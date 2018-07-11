@@ -8,7 +8,7 @@
 #                                                                   #
 #####################################################################
 
-# Code base from the Black Hat Python text
+
 
 # Requires paramiko: http://www.paramiko.org/
 	# pip install paramiko
@@ -52,15 +52,15 @@ except Exception, e:
 print '[+] Got a connection!'
 
 try:
-	bhSession = paramiko.Transport(client)
-	bhSession.add_server_key(host_key)
+	pySession = paramiko.Transport(client)
+	pySession.add_server_key(host_key)
 	server = Server()
 
 	try:
-		bhSession.start_server(server=server)
+		pySession.start_server(server=server)
 	except paramiko.SSHException, x:
 		print '[-] SSH negotiation failed.'
-	chan = bhSession.accept(20)
+	chan = pySession.accept(20)
 	print '[+] Authenticated!'
 	print chan.recv(1024)
 	chan.send('Welcome to ssh session')
@@ -74,16 +74,16 @@ try:
 		else:
 			chan.send('exit')
 			print 'exiting'
-			bhSession.close()
+			pySession.close()
 			raise Exception ('exit')
 	
 	except KeyboardInterrupt:
-		bhSession.close()
+		pySession.close()
 
 except Exception, e:
 	print '[-] Caught exception: ' + str(e)
 	try:
-		bhSession.close()
+		pySession.close()
 	except:
 		pass
 	sys.exit(1)
