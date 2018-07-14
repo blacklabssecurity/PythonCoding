@@ -10,7 +10,7 @@
 #                                                                        #
 ##########################################################################
 
-
+# This file is part of paramiko.
 
 # Requires paramiko: http://www.paramiko.org/
 	# pip install paramiko
